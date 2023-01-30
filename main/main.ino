@@ -5,7 +5,7 @@ void setup() {
 }
 
 void loop() {
-  //if(digitalRead(pirPin)){
+  if(digitalRead(pirPin)){
     stream_handler();
-  //}
+  }
 }
