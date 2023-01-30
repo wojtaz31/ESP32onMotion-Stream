@@ -8,10 +8,6 @@ const port = 6000
 let jpeg_buf: Buffer[] = []
 let bufReady: boolean = false;
 let lastPacketTime: number;
-let command = ffmpeg();
-command.input('../tmp/input_%d.jpg')
-    .output('../recordings/output.avi')
-    .on('start', function(commandLine: any) { console.log('Spawned Ffmpeg with command: ' + commandLine);})
 
 function cleanTempFiles(len: number){
     for (let i = 0; i < len; i++) {
@@ -26,7 +22,15 @@ function checkTimeout() {
             let path = `../tmp/input_${i}.jpg`;
             fs.writeFileSync(path, jpeg_buf[i]);
         }
-        command.run();
+
+        const today = new Date();
+        const date = `${today.getFullYear()}-${today.getMonth()}-${today.getDate()}-${today.getHours()}_${today.getMinutes()}_${today.getSeconds()}`;
+
+        let command = ffmpeg();
+        command.input('../tmp/input_%d.jpg')
+            .output(`../recordings/${date}.avi`)
+            .on('start', function(commandLine: any) { console.log('Spawned Ffmpeg with command: ' + commandLine);})
+            .run();
         bufReady = false
     }
 }
