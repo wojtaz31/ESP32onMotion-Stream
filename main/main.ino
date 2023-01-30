@@ -18,8 +18,8 @@
 #define ACCESS(OBJECT, MEMBER) \     
  (OBJECT).*Access((Only_##MEMBER<std::remove_reference<decltype(OBJECT)>::type>*)nullptr)
 
-const char* ssid = "NETIASPOT-A0D300";
-const char* password = "cwzub8axdvfx";
+const char* ssid = "your ssid";
+const char* password = "your password";
 const char * udpAddress = "192.168.1.4";
 char buffer_size[8192];
 const int udpPort = 6000;
@@ -209,7 +209,7 @@ camera_config_t config;
 
 void loop() {
 
-  //if(digitalRead(pirPin)){
-  stream_handler();
-  //}
+  if(digitalRead(pirPin)){
+    stream_handler();
+  }
 }
