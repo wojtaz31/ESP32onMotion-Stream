@@ -1,15 +1,7 @@
-import * as datagram from 'dgram';
-import {cleanTempFiles, checkTimeout, handleBuffer, jpeg_buf, bufReady} from "./buffer_utils";
+import {cleanTempFiles, checkTimeout, jpeg_buf, bufReady} from "./buffer_utils";
+import {udpConfig} from "./udpconfig";
 
-const socket = datagram.createSocket("udp4");
-const port = 6000
-socket.bind(port);
-console.log('Server is listening at port  ' + port );
-
-socket.on("message",(msg,receInfo)=>{
-    handleBuffer(msg);
-});
-
+udpConfig();
 setInterval(async () => {
     await Promise.resolve();
     if (!bufReady) cleanTempFiles(jpeg_buf.length);
